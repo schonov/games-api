@@ -1,0 +1,82 @@
+syntax="proto3";
+
+package gamefeed;
+option go_package="gamefeedpb";
+
+message GameFeed {
+    int32 id = 1;
+    string platform = 2;
+    string site_domain = 3;
+    string version = 4;
+    string name = 5;
+    string description = 6;
+    string template = 7;
+    repeated GameCategory game_category = 8;
+}
+
+message GameCategory {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+    string version = 4;
+    int32 display_order = 5;
+    string gamepod_size = 6;
+    string icon_url = 7;
+    string abs_icon_url = 8;
+    int32 template_id = 9;
+    repeated Game game = 10;
+}
+
+message Game {
+    int32 id = 1;
+    string game_code = 2;
+    string name = 3;
+    string provider = 4;
+    bool has_fun = 5;
+    string aspect_ratio = 6;
+    string jackpot_code = 7;
+    int32 display_order = 8;
+    bool is_featured = 9;
+    bool is_new = 10;
+    string bet_limit = 11;
+    repeated string banned_location = 12;
+    string game_client = 13;
+    string subgame = 14;
+    int32 tableid = 15;
+    bool visibility = 16;
+    string paylines = 17;
+    repeated string theme = 18;
+    string img = 19;
+    string img_square = 20;
+    string s3_img = 21;
+    string s3_img_square = 22;
+    repeated string ribbon = 23;
+    string jackpot = 24;
+    string sub_provider = 25;
+}
+
+message GameFeedInput {
+    string site = 1;
+    string platform = 2;
+    string template = 3;
+    string env = 4;
+    string currency = 5;
+    string brand = 6;
+    string state = 7;
+    string geo = 8;
+    string version = 9;
+    string os = 10;
+    string preview_template = 11;
+}
+
+message GameFeedRequest {
+    gamefeed.GameFeedInput game_feed_input = 1;
+}
+
+message GameFeedResponse {
+   repeated gamefeed.GameFeed game_feed = 1;
+}
+
+service GameFeedService{
+    rpc GameFeed(gamefeed.GameFeedRequest) returns (gamefeed.GameFeedResponse) {};
+}
